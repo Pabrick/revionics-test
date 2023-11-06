@@ -1,0 +1,26 @@
+<section class="rev-select" style="--size: {{options.length}}">
+  <button #selectBtn class="rev-select__button" (click)="toggleOptions()" role="combobox"
+    aria-labelledby="select button" aria-haspopup="listbox" aria-controls="select-dropdown" tabindex="0">
+    <span *ngIf="!options[index]" class="placeholder">
+      {{ placeholderText }}
+    </span>
+
+    <span *ngIf="options[index]" class="selection">
+      {{ options[index].text }}
+    </span>
+
+    <div class="arrow" [ngClass]="isOpen ? 'open': 'close'"></div>
+  </button>
+
+  <section class="rev-select__options" [ngClass]="isOpen ? 'open': 'close'" tabindex="0">
+    <ul class="wrapper">
+      <ng-container *ngFor="let option of options, index as i">
+        <li class="option" [ngClass]="{'selected': index === i}" (click)="onClickOption(i)" tabindex="0">
+          <input class="option__radio" id="{{option.id}}" type="radio" name="select-option"
+            [checked]="index === i ? true : false" />
+          <label class="option__label" for="{{option.id}}">{{option.text}}</label>
+        </li>
+      </ng-container>
+    </ul>
+  </section>
+</section>
